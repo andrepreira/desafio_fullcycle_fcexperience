@@ -1,0 +1,10 @@
+POST /api/chats HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "message": "Hello, world!"
+}
+
+GET /api/chats HTTP/1.1
+Host: localhost:3000
