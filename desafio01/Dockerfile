@@ -1,14 +1,16 @@
-FROM golang:alpine
+# Build stage
+FROM golang:alpine AS build
 
 WORKDIR /app
 
-COPY go.mod .
-# COPY go.sum .
-
-RUN go mod download
-
 COPY . .
 
-RUN go build -o main .
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o main .
+
+# Production stage
+FROM scratch
+
+COPY --from=build /app/main /app/main
 
 CMD ["/app/main"]
+
